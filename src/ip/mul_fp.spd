@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="mul_fp_sim/mul_fp.vo" type="VERILOG" />
+ <topLevel name="mul_fp" />
+ <deviceFamily name="cyclonev" />
+</simPackage>
