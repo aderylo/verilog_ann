@@ -3,7 +3,7 @@
 module dot_product_tb;
 
   parameter int VECTOR_LEN = 4;
-  parameter CLK_PERIOD = 20;  // Clock period for 50 MHz in nanoseconds 
+  parameter int CLK_PERIOD = 20;  // Clock period for 50 MHz in nanoseconds
 
   // initalize interface and device 
   vec_vec_to_scalar #(.VECTOR_LEN(VECTOR_LEN)) vintf ();
@@ -33,7 +33,7 @@ module dot_product_tb;
 
     @(posedge vintf.done);
 
-    // collect results 
+    // collect results
     test_out = $bitstoshortreal(vintf.result);
 
 

@@ -1,11 +1,11 @@
 
 interface vec_vec_to_scalar #(
-    parameter VECTOR_LEN = 4
+    parameter int VECTOR_LEN = 4
 );
   logic clk;
   logic rst;
-  logic [31:0] vec1[VECTOR_LEN-1:0];
-  logic [31:0] vec2[VECTOR_LEN-1:0];
+  logic [31:0] vec1[VECTOR_LEN];
+  logic [31:0] vec2[VECTOR_LEN];
   logic [31:0] result;
   logic done;
 
@@ -18,7 +18,7 @@ module dot_product (
     vec_vec_to_scalar intf
 );
 
-  logic [31:0] h_result[intf.VECTOR_LEN-1:0];
+  logic [31:0] h_result[intf.VECTOR_LEN];
   logic h_done = 0, s_done = 0, s_enable = 0;
 
   vec_vec_to_vec #(.VECTOR_LEN(intf.VECTOR_LEN)) h_intf ();
