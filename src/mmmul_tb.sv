@@ -6,10 +6,15 @@ module mmmul_tb;
   parameter int COLS1 = 4;
   parameter int ROWS2 = 4;
   parameter int COLS2 = 4;
-  parameter CLK_PERIOD = 20;  // Clock period for 50 MHz in nanoseconds 
+  parameter int CLK_PERIOD = 20;  // Clock period for 50 MHz in nanoseconds 
 
-  // initalize interface and device 
-  matrix_matrix_to_matrix #(ROWS1, COLS1, ROWS2, COLS2) tintf ();
+  // initalize interface and device
+  matrix_matrix_to_matrix_if #(
+      .ROWS1(ROWS1),
+      .COLS1(COLS1),
+      .ROWS2(ROWS2),
+      .COLS2(COLS2)
+  ) tintf ();
   mmmul dut (.intf(tintf));
 
   // intialize vars
@@ -56,7 +61,7 @@ module mmmul_tb;
     end
 
 
-    // print and check 
+    // print and check
     good = 1;
     for (r = 0; r < ROWS1; r++) begin
       for (c = 0; c < COLS2; c++) begin
