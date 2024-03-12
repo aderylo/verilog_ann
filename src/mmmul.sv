@@ -34,7 +34,8 @@ module mmmul (
       r_idx <= 0;
       c_idx <= 0;
       intf.done <= 0;
-    end else if (d_intf.done && !intf.done) begin
+      intf.enable <= 0;
+    end else if (d_intf.done && !intf.done && intf.enable) begin
       // get result and schedule next dot product
       // if all are done finish matrix multiplication
       intf.result[r_idx][c_idx] <= d_intf.result;

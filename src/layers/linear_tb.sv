@@ -16,12 +16,13 @@ module linear_tb;
   linear dut (.intf(intf));
 
   // variables
+  int r = 0, c = 0;
   shortreal data_in[COUNT][INPUT_SIZE] = '{'{1.0, 2.0, 3.0, 4.0}};
   shortreal weights[INPUT_SIZE][OUTPUT_SIZE] = '{
-      '{0.5, -0.5, 0.5, -0.5},
-      '{0.5, -0.5, 0.5, -0.5},
-      '{0.5, -0.5, 0.5, -0.5},
-      '{0.5, -0.5, 0.5, -0.5}
+      '{0.5, 0.5, 0.5, 0.5},
+      '{0.5, 0.5, 0.5, 0.5},
+      '{0.5, 0.5, 0.5, 0.5},
+      '{0.5, 0.5, 0.5, 0.5}
   };
   shortreal biases[OUTPUT_SIZE] = '{0.0, 0.0, 0.0, 0.0};
   shortreal grandtruth[COUNT][OUTPUT_SIZE] = '{'{5.0, -5.0, 5.0, -5.0}};
@@ -31,8 +32,6 @@ module linear_tb;
 
   // generate clk
   always #(CLK_PERIOD / 2) intf.clk = ~intf.clk;
-
-
 
   // testing logic
   initial begin
@@ -54,17 +53,18 @@ module linear_tb;
       end
     end
 
-    // initalize bias
-    for (r = 0; r < COUNT; r++) begin
-      for (c = 0; c < OUTPUT_SIZE; c++) begin
-        intf.bias[r][c] = $shortrealtobits(bias[r][c]);
-      end
-    end
+    // // initalize bias
+    // for (r = 0; r < COUNT; r++) begin
+    //   for (c = 0; c < OUTPUT_SIZE; c++) begin
+    //     intf.biases[r][c] = $shortrealtobits(biases[r][c]);
+    //   end
+    // end
 
     // wait for data to be loaded and toggle off reset
-    #(CLK_PERIOD * 2) tintf.rst = 0;
+    #(CLK_PERIOD * 2) intf.rst = 0;
+    intf.enable <= 1;
 
-    @(posedge tintf.done);
+    @(posedge intf.done);
 
     for (r = 0; r < COUNT; r++) begin
       for (c = 0; c < OUTPUT_SIZE; c++) begin
@@ -75,8 +75,8 @@ module linear_tb;
 
     // print and check
     good = 1;
-    for (r = 0; r < ROWS1; r++) begin
-      for (c = 0; c < COLS2; c++) begin
+    for (r = 0; r < COUNT; r++) begin
+      for (c = 0; c < OUTPUT_SIZE; c++) begin
         $display("%f", test_out[r][c]);
         good &= (grandtruth[r][c] == test_out[r][c]);
       end

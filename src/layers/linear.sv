@@ -22,9 +22,9 @@ module linear (
   // following pytroch convenvtion of input x Weights + Biases
   matrix_matrix_to_matrix_if #(
       .ROWS1(1),
-      .COLS1(INPUT_SIZE),
-      .ROWS2(INPUT_SIZE),
-      .COLS2(OUTPUT_SIZE)
+      .COLS1(intf.INPUT_SIZE),
+      .ROWS2(intf.INPUT_SIZE),
+      .COLS2(intf.OUTPUT_SIZE)
   ) mmm_if ();
 
   mmmul mmmul_instance (.intf(mmm_if));
@@ -33,21 +33,23 @@ module linear (
   assign mmm_if.clk = intf.clk;
   assign mmm_if.matrix1 = intf.data_in;
   assign mmm_if.matrix2 = intf.weights;
-  assign mmm_if.result = intf.data_out;
+  assign mmm_if.rst = intf.rst;
 
   always_ff @(intf.clk, intf.rst) begin
     if (intf.rst) begin
       // reset logic
-      intf.done <= 0;
-    end else if (!intf.enable) begin
-      mmm_if.enable <= 0;
-      intf.done <= 0;
-    end else if (intf.enable) begin
-      mmm_if.enable <= 1;
-    end else if (mmm_if.done) begin
-      // you should add bias but well...
-      intf.done <= 1;
+      intf.done   <= 0;
+      intf.enable <= 0;
+    end else begin
+      if (intf.enable) mmm_if.enable <= 1;
+
+      if (mmm_if.done) begin
+        intf.data_out <= mmm_if.result;
+        intf.done <= 1;
+      end
+
     end
+
   end
 
 endmodule

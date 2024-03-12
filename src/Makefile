@@ -63,6 +63,21 @@ mmmul: vec_d_prod
 	@echo "Compiling Verilog files for mmmul..."
 	@for file in $(MMMUL_FILES); do vlog -sv $$file; done
 
+
+# Activation functions
+ACTV_FN_FILES = activation/relu.sv activation/utils.sv
+
+activ:
+	@echo "Compiling Verilog files for activations functions..."
+	@for file in $(MMMUL_FILES); do vlog -sv $$file; done
+
+# Layers
+LAYERS_FILES = layers/linear.sv layers/linear_tb.sv
+
+layers: mmmul
+	@echo "Compiling Verilog files for ann layers..."
+	@for file in $(LAYERS_FILES); do vlog -sv $$file; done
+
 clean:
 	@echo "Cleaning up..."
 	@rm -rf work transcript *.wlf

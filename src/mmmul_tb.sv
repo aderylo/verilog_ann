@@ -6,7 +6,7 @@ module mmmul_tb;
   parameter int COLS1 = 4;
   parameter int ROWS2 = 4;
   parameter int COLS2 = 4;
-  parameter int CLK_PERIOD = 20;  // Clock period for 50 MHz in nanoseconds 
+  parameter int CLK_PERIOD = 20;  // Clock period for 50 MHz in nanoseconds
 
   // initalize interface and device
   matrix_matrix_to_matrix_if #(
@@ -50,6 +50,8 @@ module mmmul_tb;
 
 
     #(CLK_PERIOD * 2) tintf.rst = 0;
+    #(CLK_PERIOD * 2);
+    tintf.enable <= 1;
 
     @(posedge tintf.done);
 
