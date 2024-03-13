@@ -2,7 +2,7 @@
 
 module linear_tb;
   parameter int INPUT_SIZE = 4;
-  parameter int OUTPUT_SIZE = 4;
+  parameter int OUTPUT_SIZE = 2;
   parameter int COUNT = 1;
   parameter int CLK_PERIOD = 20;  // Clock period for 50 MHz in nanoseconds
 
@@ -19,13 +19,13 @@ module linear_tb;
   int r = 0, c = 0;
   shortreal data_in[COUNT][INPUT_SIZE] = '{'{1.0, 2.0, 3.0, 4.0}};
   shortreal weights[INPUT_SIZE][OUTPUT_SIZE] = '{
-      '{0.5, 0.5, 0.5, 0.5},
-      '{0.5, 0.5, 0.5, 0.5},
-      '{0.5, 0.5, 0.5, 0.5},
-      '{0.5, 0.5, 0.5, 0.5}
+      '{0.5, 0.5},
+      '{0.5, 0.5},
+      '{0.5, 0.5},
+      '{0.5, 0.5}
   };
-  shortreal biases[OUTPUT_SIZE] = '{0.0, 0.0, 0.0, 0.0};
-  shortreal grandtruth[COUNT][OUTPUT_SIZE] = '{'{5.0, 5.0, 5.0, 5.0}};
+  shortreal biases[OUTPUT_SIZE] = '{0.0, 0.0};
+  shortreal grandtruth[COUNT][OUTPUT_SIZE] = '{'{5.0, 5.0}};
   shortreal test_out[COUNT][OUTPUT_SIZE];
   bit good;
 

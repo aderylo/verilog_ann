@@ -21,7 +21,7 @@ module linear (
 
   // following pytroch convenvtion of input x Weights + Biases
   matrix_matrix_to_matrix_if #(
-      .ROWS1(1),
+      .ROWS1(intf.COUNT),
       .COLS1(intf.INPUT_SIZE),
       .ROWS2(intf.INPUT_SIZE),
       .COLS2(intf.OUTPUT_SIZE)
