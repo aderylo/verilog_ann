@@ -51,5 +51,15 @@ This is a core design of the project which you can find in the `src/mlp.sv`. MLP
     ```
     will run the respective testbench for the MLP device.
 
+### Other modules
+
+Apart from utilizng MLP design, one might be intrested in checking out one of it's building blocks such as:
+
+- matrix_matrix_multiplication 
+- dot_product
+- hadamard_product
+
+Compilation, simulation and testing steps are analogous to the MLP device.
+
 
 
