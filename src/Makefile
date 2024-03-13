@@ -78,6 +78,14 @@ layers: mmmul
 	@echo "Compiling Verilog files for ann layers..."
 	@for file in $(LAYERS_FILES); do vlog -sv $$file; done
 
+# Multi layer perceptron
+MLP_FILES = mlp.sv mlp_tb.sv
+
+mlp: layers activ
+	@echo "Compiling Verilog files for mlp..."
+	@for file in $(MLP_FILES); do vlog -sv $$file; done
+
+
 clean:
 	@echo "Cleaning up..."
 	@rm -rf work transcript *.wlf

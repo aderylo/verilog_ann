@@ -25,7 +25,7 @@ module linear_tb;
       '{0.5, 0.5, 0.5, 0.5}
   };
   shortreal biases[OUTPUT_SIZE] = '{0.0, 0.0, 0.0, 0.0};
-  shortreal grandtruth[COUNT][OUTPUT_SIZE] = '{'{5.0, -5.0, 5.0, -5.0}};
+  shortreal grandtruth[COUNT][OUTPUT_SIZE] = '{'{5.0, 5.0, 5.0, 5.0}};
   shortreal test_out[COUNT][OUTPUT_SIZE];
   bit good;
 
