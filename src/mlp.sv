@@ -80,17 +80,3 @@ module mlp (
 
 
 endmodule
-
-
-// layer_1_if.data_in <= intf.data_in;
-// layer_1_if.enable  <= 1;
-
-// if (layer_1_if.done) begin
-//   layer_2_if.data_in <= layer_1_if.data_out;
-//   layer_2_if.enable  <= 1;
-// end
-
-// if (layer_2_if.done) begin
-//   intf.data_out <= intf.data_out;
-//   intf.done <= 1;
-// end

@@ -57,7 +57,7 @@ vec_d_prod: vec_elem_sum vec_h_prod
 
 # Matrix multiplication
 
-MMMUL_FILES = mmmul.sv mmmul_tb.sv
+MMMUL_FILES = matrix/mmmul.sv matrix/mmmul_tb.sv
 
 mmmul: vec_d_prod
 	@echo "Compiling Verilog files for mmmul..."
