@@ -43,35 +43,38 @@ module mlp (
 
   assign layer_1_if.clk = intf.clk;
   assign layer_1_if.rst = intf.rst;
+  assign layer_1_if.weights = intf.weights1;
 
   assign layer_2_if.clk = intf.clk;
-  assign layer_2_if.rst = intf.rst;
+  // assign layer_2_if.rst = intf.rst;
+  assign layer_2_if.weights = intf.weights2;
 
   assign layer_1_if.data_in = intf.data_in;
   assign layer_2_if.data_in = layer_1_if.data_out;
   assign intf.data_out = layer_2_if.data_out;
 
-
+  int r = 0, c = 0;
 
   always_ff @(intf.clk, intf.rst) begin
     if (intf.rst) begin
       // rest is handled by continous assigments
-      intf.done   <= 0;
+      intf.done <= 0;
       intf.enable <= 0;
+      layer_2_if.enable <= 0;
+      layer_2_if.done <= 0;
+      layer_2_if.rst <= 1;
     end else begin
 
-      if (intf.enable) begin
+      if (intf.enable && !layer_1_if.enable) begin
         layer_1_if.enable <= 1;
-      end
-
-      if (layer_1_if.done) begin
+      end else if (layer_1_if.done && !layer_2_if.enable) begin
+        // we need to reset since we haven't implemented enable pins
+        // for basic vector operations @TODO
+        layer_2_if.rst <= 0;
         layer_2_if.enable <= 1;
-      end
-
-      if (layer_2_if.done) begin
+      end else if (layer_2_if.done) begin
         intf.done <= 1;
       end
-
     end
   end
 

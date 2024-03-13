@@ -3,7 +3,7 @@
 module mlp_tb;
 
   parameter int INPUT_SIZE = 4;
-  parameter int HIDDEN_SIZE = 4;
+  parameter int HIDDEN_SIZE = 2;
   parameter int OUTPUT_SIZE = 1;
   parameter int COUNT = 1;
   parameter int CLK_PERIOD = 20;  // Clock period in ns
@@ -22,13 +22,13 @@ module mlp_tb;
   bit good = 1;
   shortreal data_in[COUNT][INPUT_SIZE] = '{'{1.0, 2.0, 3.0, 4.0}};
   shortreal weights1[INPUT_SIZE][HIDDEN_SIZE] = '{
-      '{0.5, 0.5, 0.5, 0.5},
-      '{0.5, 0.5, 0.5, 0.5},
-      '{0.5, 0.5, 0.5, 0.5},
-      '{0.5, 0.5, 0.5, 0.5}
+      '{0.5, 0.5},
+      '{0.5, 0.5},
+      '{0.5, 0.5},
+      '{0.5, 0.5}
   };
-  shortreal weights2[HIDDEN_SIZE][OUTPUT_SIZE] = '{'{0.5}, '{0.5}, '{0.5}, '{0.5}};
-  shortreal grandtruth[COUNT][OUTPUT_SIZE] = '{'{10.0}};
+  shortreal weights2[HIDDEN_SIZE][OUTPUT_SIZE] = '{'{0.5}, '{0.5}};
+  shortreal grandtruth[COUNT][OUTPUT_SIZE] = '{'{5.0}};
   shortreal test_out[COUNT][OUTPUT_SIZE];
 
 
